@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:goodone_widgets/helper.dart';
 
 class IntroAnimWidget extends StatefulWidget{
-  Widget child;
-  bool isBottomTop;//Animation from bottom to top instead of from right to left
-  IntroAnimController controller;
-  VoidCallback onHidden;
-  VoidCallback onShown;
-  int showAnimationDuration,hideAnimationDuration;
+  Widget? child;
+  bool? isBottomTop;//Animation from bottom to top instead of from right to left
+  IntroAnimController? controller;
+  VoidCallback? onHidden;
+  VoidCallback? onShown;
+  int? showAnimationDuration,hideAnimationDuration;
   IntroAnimWidget({this.child,this.controller, this.isBottomTop=false,this.onHidden,this.onShown,this.showAnimationDuration=400,this.hideAnimationDuration=400,
-  Key key}):super(key:key);
+  Key? key}):super(key:key);
 
   _animState createState()=>_animState();
 }
 class _animState extends State<IntroAnimWidget> with TickerProviderStateMixin{
-  Animation showAnim, hideAnim;
-  Animation currentOpacityAnim, opacityShowAnim, opacityHideAnim;
-  AnimationController showAnimController, hideAnimController;
-  Offset showOffsetBegin, showOffsetEnd, hideOffsetBegin, hideOffsetEnd;
+  late Animation<Offset> showAnim, hideAnim;
+  late Animation currentOpacityAnim, opacityShowAnim, opacityHideAnim;
+  late AnimationController showAnimController, hideAnimController;
+  late Offset showOffsetBegin, showOffsetEnd, hideOffsetBegin, hideOffsetEnd;
   bool show=true;
 
 
@@ -25,18 +25,18 @@ class _animState extends State<IntroAnimWidget> with TickerProviderStateMixin{
     super.initState();
     _getOffset();
 
-    showAnimController=AnimationController(duration: Duration(milliseconds: widget.showAnimationDuration),vsync: this)..addStatusListener((AnimationStatus status){
+    showAnimController=AnimationController(duration: Duration(milliseconds: widget.showAnimationDuration!),vsync: this)..addStatusListener((AnimationStatus status){
       if(status==AnimationStatus.completed){
         if(widget.onShown!=null)
-          widget.onShown();
+          widget.onShown!();
       }
     });
 
 
-    hideAnimController=AnimationController(duration: Duration(milliseconds: widget.hideAnimationDuration),vsync: this)..addStatusListener((AnimationStatus status){
+    hideAnimController=AnimationController(duration: Duration(milliseconds: widget.hideAnimationDuration!),vsync: this)..addStatusListener((AnimationStatus status){
       if(status==AnimationStatus.completed){
         if(widget.onHidden!=null)
-          widget.onHidden();
+          widget.onHidden!();
       }
     });
 
@@ -62,13 +62,13 @@ class _animState extends State<IntroAnimWidget> with TickerProviderStateMixin{
         curve:Interval(0.0,0.50)
     ))..addListener(()=>setState((){}));
 
-    widget.controller.hide=onDone;
+    widget.controller?.hide=onDone;
     currentOpacityAnim=opacityShowAnim;
     showAnimController.forward();
   }
 
   _getOffset(){
-    if(widget.isBottomTop){
+    if(widget.isBottomTop!){
       showOffsetBegin=Offset(0.0,1.0);
       showOffsetEnd=Offset(0.0,0.0);
 
@@ -102,7 +102,7 @@ class _animState extends State<IntroAnimWidget> with TickerProviderStateMixin{
   Widget build(BuildContext context){
     return  AnimatedOpacity(
       opacity: currentOpacityAnim.value,
-      duration: Duration(milliseconds: widget.showAnimationDuration>widget.hideAnimationDuration?widget.hideAnimationDuration:widget.showAnimationDuration),
+      duration: Duration(milliseconds: widget.showAnimationDuration!>widget.hideAnimationDuration!?widget.hideAnimationDuration!:widget.showAnimationDuration!),
       child: SlideTransition(
           position: show?showAnim:hideAnim,
           child: widget.child,
@@ -114,5 +114,5 @@ class _animState extends State<IntroAnimWidget> with TickerProviderStateMixin{
 
 
 class IntroAnimController{
-  VoidCallback hide;
+  VoidCallback? hide;
 }

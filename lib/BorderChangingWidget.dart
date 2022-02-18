@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:goodone_widgets/FancyClickWidget.dart';
 
 class BorderChangingWidget extends StatefulWidget{
-  double endRadius;
-  Color color;
-  bool isChatMessageBox;
-  bool isUserMessgae;
-  bool waitForAnimation=false;
-  Widget child;
-  VoidCallback onClick;
-  VoidCallback onDoubleClick;
-  bool noAnimation;
-  bool noPadding;
+  double? endRadius;
+  Color? color;
+  bool? isChatMessageBox;
+  bool? isUserMessgae;
+  bool? waitForAnimation=false;
+  Widget? child;
+  VoidCallback? onClick;
+  VoidCallback? onDoubleClick;
+  bool? noAnimation;
+  bool? noPadding;
   BorderChangingWidget({this.child,this.endRadius=10,this.color=Colors.white,this.onClick,this.isUserMessgae,this.isChatMessageBox=false,this.waitForAnimation=false,this.noPadding=false,
   this.noAnimation=false, this.onDoubleClick});
 
@@ -21,12 +21,12 @@ class BorderChangingWidget extends StatefulWidget{
 }
 
 class _widgetState extends State<BorderChangingWidget> with TickerProviderStateMixin {
-  AnimationController borderController;
-  AnimationController colorController;
-  AnimationController sizeController;
-  Animation borderAnimation;
-  Animation sizeAnimation;
-  Animation colorAnimation;
+  AnimationController? borderController;
+  AnimationController? colorController;
+  AnimationController? sizeController;
+  Animation? borderAnimation;
+  Animation<double>? sizeAnimation;
+  Animation? colorAnimation;
   double opacity=1.0;
   bool disposed=false;
   bool startColorAnimation=false;
@@ -50,24 +50,24 @@ class _widgetState extends State<BorderChangingWidget> with TickerProviderStateM
 
 
     borderAnimation=Tween<double>(begin: 150.0,end: widget.endRadius).animate(
-      CurvedAnimation(parent: borderController,curve: Curves.fastOutSlowIn)
+      CurvedAnimation(parent: borderController!,curve: Curves.fastOutSlowIn)
     );
 
    // colorAnimation=ColorTween(begin:widget.previousColor??widget.color,end: widget.color).animate(colorController);
 
     sizeAnimation=Tween<double>(begin: 0.3,end:1.0).animate(
-        CurvedAnimation(parent: borderController,curve: Curves.fastOutSlowIn)
+        CurvedAnimation(parent: borderController!,curve: Curves.fastOutSlowIn)
     );
 
-    if(!widget.noAnimation){
-      if(widget.waitForAnimation){
+    if(!widget.noAnimation!){
+      if(widget.waitForAnimation!){
         Future.delayed(Duration(milliseconds: 200),(){
           if(!disposed) {
-            borderController.forward();
+            borderController?.forward();
           }
         });
       }else{
-        borderController.forward();
+        borderController?.forward();
       }
     }
 
@@ -78,7 +78,7 @@ class _widgetState extends State<BorderChangingWidget> with TickerProviderStateM
 
   @override
   void dispose(){
-    borderController.dispose();
+    borderController?.dispose();
     disposed=true;
     super.dispose();
   }
@@ -97,7 +97,7 @@ class _widgetState extends State<BorderChangingWidget> with TickerProviderStateM
       onTapUp: (TapUpDetails details){
         if(widget.onClick!=null) {
           setState(() {
-            widget.onClick();
+            widget.onClick!();
             opacity = 1.0;
           });
         }
@@ -105,7 +105,7 @@ class _widgetState extends State<BorderChangingWidget> with TickerProviderStateM
 
       onDoubleTap: (){
         if(widget.onDoubleClick!=null){
-          widget.onDoubleClick();
+          widget.onDoubleClick!();
         }
       },
       onTapCancel: (){
@@ -116,13 +116,13 @@ class _widgetState extends State<BorderChangingWidget> with TickerProviderStateM
         }
       },
       child: AnimatedBuilder(
-        animation: borderController,
+        animation: borderController!,
         builder: (context, child){
           return  Padding(
-            padding: widget.noPadding?EdgeInsets.zero: EdgeInsets.all(8.0),
+            padding: widget.noPadding!?EdgeInsets.zero: EdgeInsets.all(8.0),
             child: AnimatedOpacity(
               duration: Duration(milliseconds: 350),
-              opacity: widget.noAnimation?1.0:opacity,
+              opacity: widget.noAnimation!?1.0:opacity,
               child: ConstrainedBox(
                 constraints: BoxConstraints(
                   minWidth: 120,
@@ -132,7 +132,7 @@ class _widgetState extends State<BorderChangingWidget> with TickerProviderStateM
                     padding: EdgeInsets.all(5),
                   decoration: BoxDecoration(
                     color:widget.color,
-                    borderRadius:widget.isChatMessageBox? _getBorders():BorderRadius.circular(widget.noAnimation?20:borderAnimation.value)
+                    borderRadius:widget.isChatMessageBox!? _getBorders():BorderRadius.circular(widget.noAnimation!?20:borderAnimation?.value)
                   ),
                   child: child,
                   ),
@@ -142,9 +142,9 @@ class _widgetState extends State<BorderChangingWidget> with TickerProviderStateM
           );
         },
 
-        child:  widget.noAnimation?widget.child:
+        child:  widget.noAnimation!?widget.child:
         ScaleTransition(
-              scale: sizeAnimation,
+              scale: sizeAnimation!,
               child:widget.child,
 
             ),
@@ -154,17 +154,17 @@ class _widgetState extends State<BorderChangingWidget> with TickerProviderStateM
   }
 
   _getBorders(){
-    return BorderRadius.only(topLeft: widget.isUserMessgae?Radius.circular(_getBorderValue()):Radius.zero,
-    topRight:widget.isUserMessgae?Radius.zero:Radius.circular(_getBorderValue()), bottomRight: Radius.circular(_getBorderValue()),
+    return BorderRadius.only(topLeft: widget.isUserMessgae!?Radius.circular(_getBorderValue()):Radius.zero,
+    topRight:widget.isUserMessgae!?Radius.zero:Radius.circular(_getBorderValue()), bottomRight: Radius.circular(_getBorderValue()),
     bottomLeft: Radius.circular(_getBorderValue()));
   }
 
   _getBorderValue(){
-    return widget.noAnimation?20.0:borderAnimation.value;
+    return widget.noAnimation!?20.0:borderAnimation?.value;
   }
 }
 
 class ColorController{
-  bool startAnimation;
-  VoidCallback tween;
+  bool? startAnimation;
+  VoidCallback? tween;
 }

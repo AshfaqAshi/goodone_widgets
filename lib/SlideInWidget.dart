@@ -4,7 +4,7 @@ class SlideInWidget extends StatefulWidget{
   Widget child;
   int duration;
   int delay;
-  SlideInWidget({this.child, this.delay,this.duration=400});
+  SlideInWidget({required this.child, required this.delay,this.duration=400});
   _textBoxState createState()=>_textBoxState();
 }
 
