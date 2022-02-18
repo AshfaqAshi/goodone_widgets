@@ -4,7 +4,7 @@ import 'package:goodone_widgets/FancyClickWidget.dart';
 import 'package:goodone_widgets/SlideInWidget.dart';
 
 class GenderSelector extends StatefulWidget{
-  Function(String) onSelected;
+  Function(String)? onSelected;
   int selectedGenderCode;
   GenderSelector(this.selectedGenderCode,{this.onSelected});
 
@@ -41,7 +41,7 @@ class _genderState extends State<GenderSelector>{
                         onTap: (){
                           setState(() {
                             widget.selectedGenderCode=0;
-                            widget.onSelected('Male');
+                            widget.onSelected!('Male');
                           });
                         },
                         child: SizedBox(
@@ -80,7 +80,7 @@ class _genderState extends State<GenderSelector>{
                         onTap: (){
                           setState(() {
                             widget.selectedGenderCode=1;
-                            widget.onSelected('Female');
+                            widget.onSelected!('Female');
                           });
                         },
                         child: SizedBox(

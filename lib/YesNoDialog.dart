@@ -18,6 +18,7 @@ class _dialogState extends State<YesNoDialog>{
 
   Future<bool> _onBack(){
     Navigator.pop(context,false);
+    return Future.value(true);
   }
   Widget build(BuildContext context){
     return WillPopScope(

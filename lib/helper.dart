@@ -40,7 +40,7 @@ class texts{
     ),overflow: TextOverflow.ellipsis,);
   }
 
-  static postBoldText(String boldText, String text, {double fontSize=23, Color color}){
+  static postBoldText(String boldText, String text, {double fontSize=23, Color? color}){
     //List<String> boldTexts=text.split('/\{(.*?))\}');
     return RichText(
         text:TextSpan(text: text,
@@ -50,7 +50,7 @@ class texts{
     );
   }
 
-  static preBoldText(String boldText, String text, {double fontSize=23, Color color}){
+  static preBoldText(String boldText, String text, {double fontSize=23, Color? color}){
     //List<String> boldTexts=text.split('/\{(.*?))\}');
     return RichText(
         text:TextSpan(text: boldText,
@@ -70,11 +70,11 @@ class texts{
     return Text(label,style: TextStyle(fontSize: 12, color: isSelected?colors.secondaryColor:colors.foreColorInverse),);
   }
 
-  static buttonText(String text,{Color color, bool isSmall=false}){
+  static buttonText(String text,{Color? color, bool isSmall=false}){
     return Text(text,style: TextStyle(fontSize: isSmall?14:16, fontWeight: FontWeight.bold,color: color??colors.foreColor),);
   }
 
-  static titleText(String text,{double fontSize=23, Color color, }){
+  static titleText(String text,{double fontSize=23, Color? color, }){
     return Text(text,style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold, color:color??colors.foreColorInverse,),);
   }
 
@@ -82,7 +82,7 @@ class texts{
     return Text(text,style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: colors.foreColorInverse,),textAlign: TextAlign.left,maxLines: null,);
   }
 
-  static plainText(String text,{bool isBold=false, double size=14, Color color, bool isMultiLine=false, isItalic=false}){
+  static plainText(String text,{bool isBold=false, double size=14, Color? color, bool isMultiLine=false, isItalic=false}){
     return Text(text,style: TextStyle(fontWeight: isBold?FontWeight.bold:FontWeight.normal, fontSize: size,color: color??colors.foreColor, fontStyle: isItalic?FontStyle.italic:FontStyle.normal),maxLines: isMultiLine?null:1,);
   }
 
