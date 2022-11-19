@@ -71,7 +71,7 @@ class texts{
   }
 
   static buttonText(String text,{Color color, bool isSmall=false}){
-    return Text(text,style: TextStyle(fontSize: isSmall?14:16, fontWeight: FontWeight.bold,color: color??colors.foreColor),);
+    return Text(text,style: TextStyle(fontSize: isSmall?14:16, fontWeight: FontWeight.normal,color: color??colors.foreColor),);
   }
 
   static titleText(String text,{double fontSize=23, Color color, }){
@@ -131,4 +131,15 @@ class colors{
   };
 
   static MaterialColor primeswatch = MaterialColor(0xFF232F34, materialColorCode);
+
+
+  static Color lighten(Color color, [double amount = .1]) {
+    ///returns a lighter version of the given color
+    assert(amount >= 0 && amount <= 1);
+
+    final hsl = HSLColor.fromColor(color);
+    final hslLight = hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
+
+    return hslLight.toColor();
+  }
 }
