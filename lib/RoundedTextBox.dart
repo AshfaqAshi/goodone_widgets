@@ -6,35 +6,35 @@ import 'package:flutter/material.dart';
 import 'package:goodone_widgets/helper.dart';
 
 class RoundedTextBox extends StatefulWidget {
-  TextEditingController txtController;
-  String hintText;
-  double borderRadius;
+  TextEditingController? txtController;
+  String? hintText;
+  double? borderRadius;
   String labelText;
   String helperText;
   String prefixText;
-  String suffixText;
-  IconData prefixIcon;
-  IconData suffixIcon;
-  VoidCallback suffixIconClick;
-  Function(String) onTextChange;
+  String? suffixText;
+  IconData? prefixIcon;
+  IconData? suffixIcon;
+  VoidCallback? suffixIconClick;
+  Function(String)? onTextChange;
   bool isMultiLine = false;
   bool isEnabled;
-  int maxLines;
-  FocusNode focusNode;
+  int? maxLines;
+  FocusNode? focusNode;
   bool isNumber;
   bool isObscured;
   bool needPadding;
-  RoundedTextBoxDefaults defaults;
-  TextAlign textAlign;
+  RoundedTextBoxDefaults? defaults;
+  TextAlign? textAlign;
   double fontSize;
   TextDirection textDirection;
   bool isBold;
   bool isFilled;
   bool autoFocus;
-  Color fillColor;
+  Color? fillColor;
   double verticalSpace;
   double horizontalSpace;
-  Function(String) validator;
+  Function(String)? validator;
 
   RoundedTextBox(
       {this.txtController,
@@ -93,9 +93,9 @@ class _textBoxState extends State<RoundedTextBox> {
           obscureText: widget.isObscured,
           maxLines: (widget.isMultiLine) ? widget.maxLines : 1,
           onChanged: (newText) {
-              if (widget.onTextChange != null) widget.onTextChange(newText);
+              if (widget.onTextChange != null) widget.onTextChange!(newText);
             },
-          validator: widget.validator,
+          validator: widget.validator as String? Function(String?)?,
             
         ),
       );
@@ -103,9 +103,9 @@ class _textBoxState extends State<RoundedTextBox> {
     OutlineInputBorder border = OutlineInputBorder(
         borderSide: BorderSide(
             width: 1,
-            color: widget.defaults.borderColor ?? colors.secondaryColor),
+            color: widget.defaults!.borderColor ?? colors.secondaryColor),
         borderRadius: BorderRadius.circular(
-            widget.borderRadius == null ? 15 : widget.borderRadius));
+            widget.borderRadius == null ? 15 : widget.borderRadius!));
 
     return Padding(
       padding: widget.needPadding ? EdgeInsets.all(8.0) : EdgeInsets.zero,
@@ -113,7 +113,7 @@ class _textBoxState extends State<RoundedTextBox> {
         constraints: BoxConstraints(maxHeight: 100),
         //height:(widget.helperText=='')?50:70,
         child: TextFormField(
-          validator: widget.validator,
+          validator: widget.validator as String? Function(String?)?,
           autofocus: widget.autoFocus,
           controller: widget.txtController,
           focusNode: widget.focusNode,
@@ -127,12 +127,12 @@ class _textBoxState extends State<RoundedTextBox> {
           textAlign: widget.textAlign ?? TextAlign.left,
           textDirection: widget.textDirection,
           style: TextStyle(
-              color: widget.defaults.textColor ?? colors.foreColor,
+              color: widget.defaults!.textColor ?? colors.foreColor,
               fontSize: widget.fontSize,
               fontWeight: widget.isBold ? FontWeight.bold : FontWeight.normal),
           enabled: widget.isEnabled,
           onChanged: (newText) {
-            if (widget.onTextChange != null) widget.onTextChange(newText);
+            if (widget.onTextChange != null) widget.onTextChange!(newText);
           },
           decoration: InputDecoration(
               labelText: widget.labelText == '' ? null : widget.labelText,
@@ -147,22 +147,22 @@ class _textBoxState extends State<RoundedTextBox> {
                   ? null
                   : Icon(
                       widget.prefixIcon,
-                      color: widget.defaults.iconColor ?? colors.primaryColor,
+                      color: widget.defaults!.iconColor ?? colors.primaryColor,
                     ),
               suffixIcon: widget.suffixIcon == null
                   ? null
                   : IconButton(
-                      onPressed: () => widget.suffixIconClick(),
+                      onPressed: () => widget.suffixIconClick!(),
                       icon: Icon(
                         widget.suffixIcon,
-                        color: widget.defaults.iconColor ?? colors.primaryColor,
+                        color: widget.defaults!.iconColor ?? colors.primaryColor,
                         size: 30,
                       ),
                     ),
               filled: widget.isFilled,
               fillColor: widget.isFilled
                   ? widget.fillColor
-                  : widget.defaults.fillColor ?? colors.bgColor,
+                  : widget.defaults!.fillColor ?? colors.bgColor,
               contentPadding: new EdgeInsets.symmetric(
                   vertical: widget.verticalSpace,
                   horizontal: widget.horizontalSpace),
@@ -175,10 +175,10 @@ class _textBoxState extends State<RoundedTextBox> {
 }
 
 class RoundedTextBoxDefaults {
-  Color textColor;
-  Color iconColor;
-  Color fillColor;
-  Color borderColor;
+  Color? textColor;
+  Color? iconColor;
+  Color? fillColor;
+  Color? borderColor;
   RoundedTextBoxDefaults(
       {this.textColor, this.iconColor, this.fillColor, this.borderColor});
 }

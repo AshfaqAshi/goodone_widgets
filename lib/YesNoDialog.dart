@@ -16,8 +16,9 @@ class YesNoDialog extends StatefulWidget{
 class _dialogState extends State<YesNoDialog>{
   IntroAnimController introController=IntroAnimController();
 
-  Future<bool> _onBack(){
+  Future<bool> _onBack()async{
     Navigator.pop(context,false);
+    return false;
   }
   Widget build(BuildContext context){
     return WillPopScope(

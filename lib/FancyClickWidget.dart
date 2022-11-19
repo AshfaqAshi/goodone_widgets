@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 //import 'package:hu/helpers/classes/User.dart';
 //import 'package:hu/helpers/helper.dart';
 class FancyClickWidget extends StatefulWidget{
-  VoidCallback onClick;
+  VoidCallback? onClick;
   bool isScaleAnimation;
   double displacement;
-  Widget child;
+  Widget? child;
   FancyClickWidget({this.onClick, this.child,this.isScaleAnimation=true,this.displacement=0.25});
 
   _fancyClickState createState()=>_fancyClickState();
@@ -13,8 +13,8 @@ class FancyClickWidget extends StatefulWidget{
 
 class _fancyClickState extends State<FancyClickWidget> with TickerProviderStateMixin {
 
-  AnimationController scaleDownController, scaleUpController;
-  Animation scaleUpAnimation, scaleDownAnimation;
+  late AnimationController scaleDownController, scaleUpController;
+  late Animation scaleUpAnimation, scaleDownAnimation;
 
   bool istapIn = false;
   bool isTapOut = false;
@@ -55,7 +55,7 @@ class _fancyClickState extends State<FancyClickWidget> with TickerProviderStateM
                // aimationPlayed =
                 //true; //Animation played should be made true only when the ScaleUp animation has completed
                 //isTapOut = false;
-                widget.onClick();
+                widget.onClick!();
               //});
             }
           }
@@ -139,7 +139,7 @@ class _fancyClickState extends State<FancyClickWidget> with TickerProviderStateM
       child:
           widget.isScaleAnimation?
       ScaleTransition(
-        scale: (isTapOut) ? scaleUpAnimation : scaleDownAnimation,
+        scale: (isTapOut) ? scaleUpAnimation as Animation<double> : scaleDownAnimation as Animation<double>,
         child: widget.child,
       ):
               AnimatedOpacity(

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:goodone_widgets/IntroAnimWidget.dart';
 class SlideInWidget extends StatefulWidget{
-  Widget child;
+  Widget? child;
   int duration;
-  int delay;
+  int? delay;
   SlideInWidget({this.child, this.delay,this.duration=400});
   _textBoxState createState()=>_textBoxState();
 }
@@ -21,7 +21,7 @@ class _textBoxState extends State<SlideInWidget>{
 
   _startAnimation()async{
 
-    Future.delayed(Duration(milliseconds: widget.delay),(){
+    Future.delayed(Duration(milliseconds: widget.delay!),(){
       if(!disposed){
         setState(() {
           showWidget=true;

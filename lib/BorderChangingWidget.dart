@@ -6,11 +6,11 @@ class BorderChangingWidget extends StatefulWidget{
   double endRadius;
   Color color;
   bool isChatMessageBox;
-  bool isUserMessgae;
+  bool? isUserMessgae;
   bool waitForAnimation=false;
-  Widget child;
-  VoidCallback onClick;
-  VoidCallback onDoubleClick;
+  Widget? child;
+  VoidCallback? onClick;
+  VoidCallback? onDoubleClick;
   bool noAnimation;
   bool noPadding;
   BorderChangingWidget({this.child,this.endRadius=10,this.color=Colors.white,this.onClick,this.isUserMessgae,this.isChatMessageBox=false,this.waitForAnimation=false,this.noPadding=false,
@@ -21,12 +21,12 @@ class BorderChangingWidget extends StatefulWidget{
 }
 
 class _widgetState extends State<BorderChangingWidget> with TickerProviderStateMixin {
-  AnimationController borderController;
-  AnimationController colorController;
-  AnimationController sizeController;
-  Animation borderAnimation;
-  Animation sizeAnimation;
-  Animation colorAnimation;
+  late AnimationController borderController;
+  AnimationController? colorController;
+  AnimationController? sizeController;
+  late Animation borderAnimation;
+  late Animation sizeAnimation;
+  Animation? colorAnimation;
   double opacity=1.0;
   bool disposed=false;
   bool startColorAnimation=false;
@@ -97,7 +97,7 @@ class _widgetState extends State<BorderChangingWidget> with TickerProviderStateM
       onTapUp: (TapUpDetails details){
         if(widget.onClick!=null) {
           setState(() {
-            widget.onClick();
+            widget.onClick!();
             opacity = 1.0;
           });
         }
@@ -105,7 +105,7 @@ class _widgetState extends State<BorderChangingWidget> with TickerProviderStateM
 
       onDoubleTap: (){
         if(widget.onDoubleClick!=null){
-          widget.onDoubleClick();
+          widget.onDoubleClick!();
         }
       },
       onTapCancel: (){
@@ -144,7 +144,7 @@ class _widgetState extends State<BorderChangingWidget> with TickerProviderStateM
 
         child:  widget.noAnimation?widget.child:
         ScaleTransition(
-              scale: sizeAnimation,
+              scale: sizeAnimation as Animation<double>,
               child:widget.child,
 
             ),
@@ -154,8 +154,8 @@ class _widgetState extends State<BorderChangingWidget> with TickerProviderStateM
   }
 
   _getBorders(){
-    return BorderRadius.only(topLeft: widget.isUserMessgae?Radius.circular(_getBorderValue()):Radius.zero,
-    topRight:widget.isUserMessgae?Radius.zero:Radius.circular(_getBorderValue()), bottomRight: Radius.circular(_getBorderValue()),
+    return BorderRadius.only(topLeft: widget.isUserMessgae!?Radius.circular(_getBorderValue()):Radius.zero,
+    topRight:widget.isUserMessgae!?Radius.zero:Radius.circular(_getBorderValue()), bottomRight: Radius.circular(_getBorderValue()),
     bottomLeft: Radius.circular(_getBorderValue()));
   }
 
@@ -165,6 +165,6 @@ class _widgetState extends State<BorderChangingWidget> with TickerProviderStateM
 }
 
 class ColorController{
-  bool startAnimation;
-  VoidCallback tween;
+  bool? startAnimation;
+  VoidCallback? tween;
 }

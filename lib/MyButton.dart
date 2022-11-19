@@ -6,21 +6,21 @@ import 'package:flutter/material.dart';
 import 'package:goodone_widgets/helper.dart';
 
 class MyButton extends StatefulWidget {
-  ButtonController controller;
-  String text;
+  ButtonController? controller;
+  String? text;
   bool needPadding = true;
   bool centerAlign;
   bool isSecondary;
   bool isDangerType;
-  VoidCallback onClick;
+  VoidCallback? onClick;
   bool needWaitingSign;
   bool isFullWidth; //If button width needs to fill parent
-  MyButtonDefaults defaults;
+  MyButtonDefaults? defaults;
   bool isSmall;
-  double height; //height of the button
-  Alignment alignment;
-  Color color;
-  IconData icon;
+  double? height; //height of the button
+  Alignment? alignment;
+  Color? color;
+  IconData? icon;
   MyButton(
       {this.controller,
       this.text,
@@ -43,14 +43,14 @@ class MyButton extends StatefulWidget {
 
 class _roundedState extends State<MyButton> with TickerProviderStateMixin {
   bool processing = false;
-  AnimationController animController;
-  Animation widthAnimation, borderAnimation;
+  late AnimationController animController;
+  late Animation widthAnimation, borderAnimation;
   bool isDisposed = false;
 
   bool isIos = false;
   void initState() {
     super.initState();
-    if (widget.needWaitingSign) widget.controller.onDone = _onDone;
+    if (widget.needWaitingSign) widget.controller!.onDone = _onDone;
 
     if (!kIsWeb) {
       if (Platform.isIOS) {
@@ -104,14 +104,14 @@ class _roundedState extends State<MyButton> with TickerProviderStateMixin {
                       processing = true;
                        animController.forward();
                     }
-                    widget.onClick();
+                    widget.onClick!();
                   });
                 }
               },
               child: (!processing)
-                  ? texts.plainText(widget.text,
+                  ? texts.plainText(widget.text!,
                       color: (widget.isSecondary || widget.isSmall)
-                          ? widget.defaults.bgColor
+                          ? widget.defaults!.bgColor
                           : colors.foreColorInverse)
                   : CupertinoActivityIndicator()),
         ),
@@ -138,7 +138,7 @@ class _roundedState extends State<MyButton> with TickerProviderStateMixin {
                         widget.isFullWidth
                             ? double.infinity
                             : widthAnimation.value, widget.isSmall ? 30 : widget.height ?? 50)),
-                      backgroundColor: MaterialStateProperty.all<Color>(_getColor()),
+                      backgroundColor: MaterialStateProperty.all<Color?>(_getColor()),
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                         // side: BorderSide(width: 1,color:colors.lighten(_getColor(),0.4) ),
                         borderRadius: BorderRadius.circular(15)
@@ -152,7 +152,7 @@ class _roundedState extends State<MyButton> with TickerProviderStateMixin {
                         if (widget.needWaitingSign) {
                           processing = true;
                         }
-                        widget.onClick();
+                        widget.onClick!();
                       });
                     }
                   },
@@ -163,8 +163,8 @@ class _roundedState extends State<MyButton> with TickerProviderStateMixin {
                         height: 20,
                         child: CircularProgressIndicator(
                     strokeWidth: 2.0,
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                          widget.defaults.forecolor),
+                    valueColor: AlwaysStoppedAnimation<Color?>(
+                          widget.defaults!.forecolor),
                   ),
                       ),
                 )),
@@ -202,30 +202,30 @@ class _roundedState extends State<MyButton> with TickerProviderStateMixin {
     }
   }
 
-  Color _getColor() {
+  Color? _getColor() {
     if (widget.color != null) {
       return widget.color;
     } else {
       if (widget.isSecondary) {
-        return widget.defaults.secondaryColor;
+        return widget.defaults!.secondaryColor;
       } else {
         if (widget.isDangerType) {
           return colors.dangerButtonBackground;
         } else {
-          return widget.defaults.bgColor;
+          return widget.defaults!.bgColor;
         }
       }
     }
   }
 
   _button_text() {
-    return texts.buttonText(widget.text,
+    return texts.buttonText(widget.text!,
         isSmall: widget.isSmall,
         color: widget.isDangerType
             ? colors.foreColorInverse
             : (widget.isSecondary)
-                ? widget.defaults.secondaryForecolor
-                : widget.defaults.forecolor);
+                ? widget.defaults!.secondaryForecolor
+                : widget.defaults!.forecolor);
   }
 
   _onDone() {
@@ -237,14 +237,14 @@ class _roundedState extends State<MyButton> with TickerProviderStateMixin {
 }
 
 class ButtonController {
-  VoidCallback onDone;
+  VoidCallback? onDone;
 }
 
 class MyButtonDefaults {
-  Color bgColor;
-  Color forecolor;
-  Color secondaryColor;
-  Color secondaryForecolor;
+  Color? bgColor;
+  Color? forecolor;
+  Color? secondaryColor;
+  Color? secondaryForecolor;
   MyButtonDefaults(
       {this.bgColor,
       this.forecolor,
