@@ -76,9 +76,11 @@ class _textBoxState extends State<RoundedTextBox> {
   void initState() {
     super.initState();
     if (!kIsWeb) {
-      if (Platform.isIOS) {
-        isIos = true;
-      }
+      /// since it ahs been decided to go with a single UI for all platforms, the [isIos] variable is no
+      /// longer required. The code has to be refactored accordingly but for the time being set it to false; (commenting below code block)
+      // if (Platform.isIOS) {
+      //   isIos = true;
+      // }
     }
   }
 
