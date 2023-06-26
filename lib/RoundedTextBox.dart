@@ -20,6 +20,8 @@ class RoundedTextBox extends StatefulWidget {
   bool isMultiLine = false;
   bool isEnabled;
   int? maxLines;
+  /// minimum lines to be kept. This field is considered only if [isMultiline] is true
+  int? minLines;
   FocusNode? focusNode;
   bool isNumber;
   bool isObscured;
@@ -41,6 +43,7 @@ class RoundedTextBox extends StatefulWidget {
       this.hintText,
       this.isMultiLine = false,
       this.maxLines,
+        this.minLines,
       this.borderRadius,
       this.labelText = '',
       this.prefixIcon,
@@ -94,6 +97,7 @@ class _textBoxState extends State<RoundedTextBox> {
           controller: widget.txtController,
           obscureText: widget.isObscured,
           maxLines: (widget.isMultiLine) ? widget.maxLines : 1,
+          minLines: (widget.isMultiLine) ? widget.minLines??2:null,
           onChanged: (newText) {
               if (widget.onTextChange != null) widget.onTextChange!(newText);
             },
