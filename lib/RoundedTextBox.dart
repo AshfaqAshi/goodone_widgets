@@ -130,6 +130,7 @@ class _textBoxState extends State<RoundedTextBox> {
                   : TextInputType.text,
           obscureText: widget.isObscured,
           maxLines: (widget.isMultiLine) ? widget.maxLines : 1,
+          minLines: (widget.isMultiLine) ? widget.minLines??2:null,
           textAlign: widget.textAlign ?? TextAlign.left,
           textDirection: widget.textDirection,
           style: TextStyle(
