@@ -134,7 +134,7 @@ class _roundedState extends State<MyButton> with TickerProviderStateMixin {
                     : widget.alignment ?? Alignment.centerRight,
                 child: TextButton(
                   style: ButtonStyle(
-                    padding: MaterialStateProperty.all(EdgeInsets.all(12)),
+                    padding: MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: 12, vertical: 8)),
                     minimumSize: MaterialStateProperty.all(Size(
                         widget.isFullWidth
                             ? double.infinity
