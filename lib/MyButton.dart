@@ -53,8 +53,9 @@ class _roundedState extends State<MyButton> with TickerProviderStateMixin {
     if (widget.needWaitingSign) widget.controller!.onDone = _onDone;
 
     if (!kIsWeb) {
+      ///ios specific UI is deprecated
       if (Platform.isIOS) {
-        isIos = true;
+        //isIos = true;
       }
     }
 
