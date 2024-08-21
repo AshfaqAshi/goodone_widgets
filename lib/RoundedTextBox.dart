@@ -126,7 +126,7 @@ class _textBoxState extends State<RoundedTextBox> {
           keyboardType: (widget.isMultiLine)
               ? TextInputType.multiline
               : (widget.isNumber)
-                  ? TextInputType.number
+                  ? TextInputType.numberWithOptions
                   : TextInputType.text,
           obscureText: widget.isObscured,
           maxLines: (widget.isMultiLine) ? widget.maxLines : 1,
