@@ -21,6 +21,7 @@ class MyButton extends StatefulWidget {
   Alignment? alignment;
   Color? color;
   IconData? icon;
+  Key? key;
   MyButton(
       {this.controller,
       this.text,
@@ -36,7 +37,7 @@ class MyButton extends StatefulWidget {
       this.alignment,
       this.icon,
       this.height,
-      this.color});
+      this.color, this.key}): super(key: key ?? UniqueKey());
 
   _roundedState createState() => _roundedState();
 }
